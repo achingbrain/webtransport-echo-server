@@ -2,22 +2,28 @@ const CHUNKS = 1024
 const CHUNK_LENGTH = 1024
 
 async function main () {
-   const transport = new WebTransport('https://127.0.0.1:8080', {
+  // dial the echo server
+  const transport = new WebTransport('https://127.0.0.1:8080', {
     serverCertificateHashes: [{
       algorithm: 'sha-256',
-      value: Uint8Array.from([120, 65, 196, 146, 185, 143, 66, 45, 248, 228, 43, 158, 160, 214, 25, 93, 53, 191, 102, 225, 100, 46, 149, 15, 103, 45, 252, 17, 1, 128, 77, 181])
+      value: Uint8Array.from([207, 238, 167, 126, 219, 130, 217, 61, 179, 131, 167, 107, 120, 212, 235, 124, 93, 34, 32, 109, 222, 130, 71, 205, 75, 173, 88, 198, 201, 103, 83, 111])
     },{
       algorithm: 'sha-256',
-      value: Uint8Array.from([135, 235, 207, 31, 73, 31, 71, 226, 71, 57, 165, 51, 233, 210, 196, 237, 189, 96, 70, 25, 200, 51, 104, 112, 111, 104, 11, 109, 35, 69, 58, 231])
+      value: Uint8Array.from([25, 72, 22, 187, 18, 49, 39, 92, 202, 83, 1, 93, 84, 80, 23, 212, 136, 114, 230, 88, 250, 82, 221, 248, 115, 202, 52, 189, 95, 238, 19, 71])
     }]
   })
 
+  // wait for the connection to become established
   await transport.ready
   console.info('transport ready')
 
+  // count how many chunks have been received
   let received = 0
+
+  // create a bidirectional echo stream
   const stream = await transport.createBidirectionalStream()
 
+  // write and read data simultaneously
   await Promise.all([
     async function writeData () {
       const writer = await stream.writable.getWriter()
@@ -43,12 +49,12 @@ async function main () {
           return
         }
 
-        received++
+        received += result.value.byteLength
       }
     }()
   ])
 
-  console.info('done send and read', received, 'of', CHUNKS)
+  console.info('done send and read', received, 'bytes of', CHUNKS * CHUNK_LENGTH)
 }
 
 main().catch(err => {

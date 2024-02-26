@@ -20,8 +20,8 @@ unsent bytes can end up being discarded.
 
 [This codepen](https://codepen.io/achingbrain/pen/eYXqyYP) connects to an echo
 server, sends 1024 chunks of 1024 bytes before closing the writer.  At the same
-time a reader is configured to counts what is sent back before the reader
-closes.
+time a reader is configured to counts the bytes that are sent back before the
+reader closes.
 
 ## Usage
 
@@ -35,12 +35,12 @@ closes.
 "transport ready"
 "closing writer"
 "finished reading"
-"done send and read" 77 "of" 1024
+"done send and read" 196608 "bytes of" 1048576
 ```
 
 If all queued writes are sent after the `.close` function is called, you would
 expect to see:
 
 ```
-"done send and read" 1024 "of" 1024
+"done send and read" 1048576 "bytes of" 1048576
 ```
