@@ -6,10 +6,10 @@ async function main () {
   const transport = new WebTransport('https://127.0.0.1:8080', {
     serverCertificateHashes: [{
       algorithm: 'sha-256',
-      value: Uint8Array.from([207, 238, 167, 126, 219, 130, 217, 61, 179, 131, 167, 107, 120, 212, 235, 124, 93, 34, 32, 109, 222, 130, 71, 205, 75, 173, 88, 198, 201, 103, 83, 111])
+      value: Uint8Array.from(atob('h4hbcdPdZ5HduF/F0e51SU59awRDAToXqVkpx2GlSZw='), (m) => m.codePointAt(0))
     },{
       algorithm: 'sha-256',
-      value: Uint8Array.from([25, 72, 22, 187, 18, 49, 39, 92, 202, 83, 1, 93, 84, 80, 23, 212, 136, 114, 230, 88, 250, 82, 221, 248, 115, 202, 52, 189, 95, 238, 19, 71])
+      value: Uint8Array.from(atob('b8RpavRa5qw3/Z09QxF9mw6go2GiQlzxLCJvJ4YuFZQ='), (m) => m.codePointAt(0))
     }]
   })
 

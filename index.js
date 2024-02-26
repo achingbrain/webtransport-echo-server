@@ -35,7 +35,7 @@ console.info(`
   const transport = new WebTransport('https://127.0.0.1:${address?.port}', {
     serverCertificateHashes: [${certificates.map(cert => `{
       algorithm: 'sha-256',
-      value: Uint8Array.from([${cert.hash.digest.join(', ')}])
+      value: Uint8Array.from(atob('${btoa(String.fromCodePoint(...cert.hash.digest))}'), (m) => m.codePointAt(0))
     }`)}]
   })
 `)
