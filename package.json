@@ -1,0 +1,18 @@
+{
+  "name": "webtransport-echo-server",
+  "version": "1.0.0",
+  "description": "A simple WebTransport server that supports bidi streams and just echos and received bytes back to the sender",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fails-components/webtransport": "^1.0.10",
+    "@fails-components/webtransport-transport-http3-quiche": "^1.0.10",
+    "multiformats": "^13.1.0",
+    "node-forge": "^1.3.1"
+  }
+}
