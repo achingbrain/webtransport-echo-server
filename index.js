@@ -63,9 +63,11 @@ while (true) {
             break
           }
 
-          result.value.readable.pipeTo(result.value.writable).catch(err => {
-            console.error('error piping stream back to itself', err)
-          })
+          result.value.readable
+            .pipeTo(result.value.writable)
+            .catch(err => {
+              console.error('error piping stream back to itself', err)
+            })
         }
       } catch (err) {
         console.error('error waiting for session to become ready', err)
