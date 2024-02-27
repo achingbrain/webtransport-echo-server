@@ -10,10 +10,6 @@ const certificates = await generateWebTransportCertificates([
 ], [{
   // can be max 14 days according to the spec
   days: 13
-}, {
-  days: 13,
-  // start in 12 days time
-  start: new Date(Date.now() + (86400000 * 12))
 }])
 
 const server = new Http3Server({

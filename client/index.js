@@ -15,16 +15,16 @@ async function main () {
 
   // wait for the connection to become established
   await transport.ready
-  console.info('transport ready')
-
-  // count how many chunks have been received
-  let received = 0
 
   // create a bidirectional echo stream
   const stream = await transport.createBidirectionalStream()
 
+  // count how many bytes have been received
+  let received = 0
+
   // write and read data simultaneously
   await Promise.all([
+    // write data
     async function writeData () {
       const writer = await stream.writable.getWriter()
 
@@ -35,9 +35,10 @@ async function main () {
         writer.write(buf).catch(() => {})
       }
 
-      console.info('closing writer')
       await writer.close()
     }(),
+
+    // read data
     async function readData () {
       const reader = await stream.readable.getReader()
 
@@ -45,7 +46,6 @@ async function main () {
         const result = await reader.read()
 
         if (result.done) {
-          console.info('finished reading')
           return
         }
 
